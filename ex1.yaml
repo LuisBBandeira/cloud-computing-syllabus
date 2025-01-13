@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: echosever
+  name: echosever
+spec:
+  containers:
+  - args:
+    - -text=tosedk
+    image: hashicorp/http-echo
+    name: echosever
+    ports:
+    - containerPort: 5678
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
