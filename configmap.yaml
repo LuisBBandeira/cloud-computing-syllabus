@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: nginx-config
+data:
+  indx.html: |
+    <h1>TOTOTOOTOT<h1>
