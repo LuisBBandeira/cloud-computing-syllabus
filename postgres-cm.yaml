@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: postgtres-config
+data:
+  POSTGRESQL_PGAUDIT_LOG: READ_ONLY
+  POSTGRESQL_LOG_HOSTNAME: true
+  POSTGRESQL_DATABASE: my_database
+  ALLOW_EMPY_PASSWORD: "yes"  
+  POSTGRESQL_USENAME: postgres
+  POSTGRESQL_MASTER_HOST: postgressql-master
+  POSTGRESQL_REPLICATION_USER: reql_user
+  POSTGRESQL_MASTER_PORT_NUMBER: "5432"

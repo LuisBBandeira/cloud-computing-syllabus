@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: postgres-cluster
+spec:
+  selecter:
+    matchLabels:
+      app: postgres
+    replicas: 2
+    template:
+      metadata:
+        name: postgres-cluster
+        labels:
+          app: postgres
+      spec:
+        containers:
+          - name: postegres
+            image: postgres:latest
+            ports:
+            - name: postgres
+              containerPort: 80
+              Protocol: TCP
+            env:
+              - name: POSTGRESQL_REPLICATION_MODE
+                valeu: master
+                mountPath: POSTGRESQL_DATABASE
+                valeuFROM:
+                  configMapKeyRef:
+                    key: POSTGRESQL_DATABASE
+                    name: postgres-config
+      volumeClaimTEmplates:
+      - metadata:
+          name: postgres
+        spec:
+        storageClassName: standart
+        accessModes: [ "ReadWriteOnly" ]
+        resources:
+          requests:
+            storage: 1Gi
