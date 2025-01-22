@@ -7,36 +7,36 @@ resource "kubernetes_namespace_v1" "my-ns" {
 
 resource "kubernetes_deployment_v1" "my-deployment" {
   for_each = toset(var.environment)
-  metadata {
-    name = "nginx-${each.key}"
-    labels = {
-      test = "nginx-${each.key}"
-    }
+ metadata {
+    name      = "${var.deploy.name}-${each.key}"
     namespace = each.key
+    labels = {
+      app = var.deploy.name
+    }
   }
 
   spec {
-    replicas = 3
+    replicas = var.deploy.replicas
 
     selector {
       match_labels = {
-        app = "nginx-${each.key}"
+        app = var.deploy.name
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "nginx-${each.key}"
+          app = var.deploy.name
         }
       }
 
       spec {
         container {
-          image = "nginx:alpine"
-          name  = "nginx"
+          name  = var.deploy.containerName
+          image = var.deploy.image
           port {
-            container_port = 80
+            container_port = var.deploy.port
           }
         }
       }

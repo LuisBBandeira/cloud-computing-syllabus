@@ -1,8 +1,8 @@
 resource "minikube_cluster" "my-cluster" {
-    cluster_name = "etic-cluster"
+    cluster_name = var.cluster.name
     driver = "docker"
-    nodes = 2
-    addons = [ 
+    nodes = var.cluster.nodes
+    addons = [
         "ingress"
-     ]
+    ]
 }
