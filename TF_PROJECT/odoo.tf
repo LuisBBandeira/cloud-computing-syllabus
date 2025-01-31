@@ -1,6 +1,7 @@
 resource "kubernetes_deployment" "odoo-deployment" {
+  for_each = var.environment
   metadata {
-    name = var.odoo.name
+    name =  "${var.odoo.name}-${each.key}"  
     labels = {
       app = var.odoo.labels[0]
     }
@@ -22,7 +23,7 @@ resource "kubernetes_deployment" "odoo-deployment" {
       }
       spec {
         container {
-          name  = var.odoo.name
+          name  = "${var.odoo.name}-tf"  
           image = var.odoo.image
           port {
             container_port = var.odoo.port
@@ -46,8 +47,9 @@ resource "kubernetes_deployment" "odoo-deployment" {
 }
 
 resource "kubernetes_service" "odoo" {
+  for_each = var.environment
   metadata {
-    name = "odoo"
+    name = "odoo-${each.key}"
   }
   spec {
     selector = {

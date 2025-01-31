@@ -20,7 +20,10 @@ provider "minikube" {
 }
 
 provider "kubernetes" {
-
+  host = minikube_cluster.my-cluster.host
+  cluster_ca_certificate = minikube_cluster.my-cluster.cluster_ca_certificate
+  client_certificate = minikube_cluster.my-cluster.client_certificate
+  client_key = minikube_cluster.my-cluster.client_key
 }
 
 provider "tls" {

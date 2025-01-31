@@ -3,4 +3,5 @@ resource "minikube_cluster" "my-cluster" {
     driver = "docker"
     nodes = var.cluster.nodes
     addons = var.cluster.addons
+    force_systemd = false
 }
